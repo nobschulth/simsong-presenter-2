@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import Presentation from "./components/Presentation.tsx"
 import "./App.css"
 import Main from "./components/Main.tsx"
 import LanguageProvider from "./Translations.tsx"

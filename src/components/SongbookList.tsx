@@ -1,12 +1,11 @@
 import { useLanguage } from "../Translations.tsx"
 import type { Songbook } from "../types.ts"
-import { useContext } from "react"
 import { FaRegPaste } from "react-icons/fa6";
 import styles from "./SongbookList.module.css"
 import "../common.css"
 
 export default function SongbookList(props: { 
-        songbook: Songbook[], 
+        songbook: Songbook, 
         onSongSelected: (index: number) => void,
         onBackPressed: () => void,
         onAddPressed: (text: string) => void }) {

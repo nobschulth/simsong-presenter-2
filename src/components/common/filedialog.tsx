@@ -1,12 +1,12 @@
-import { useState } from "react"
 import { useRef } from "react"
 import styles from "./filedialog.module.css"
 import "../../common.css"
 
 export default function FileDialog(props: { infoText: string, onFileSelect: (file: File) => void }) {
-    const inputRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    function setFile(file: File) {
+    function setFile(file: File | undefined) {
+        if (!file) return;
         props.onFileSelect(file);
     }
 

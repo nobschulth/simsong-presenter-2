@@ -9,7 +9,6 @@ const translations = {
         new: "New",
         download: "Download",
         exit: "Exit",
-        back: "Back",
     },
     de: {
         select: "Auswählen",
@@ -17,7 +16,6 @@ const translations = {
         new: "Neu",
         download: "Herunterladen",
         exit: "Verlassen",
-        back: "Zurück",
     }
 }
 
@@ -26,7 +24,7 @@ type Translation = (typeof translations)[Language];
 type LanguageState = {
     language: Language,
     t: Translation,
-    setLanguage: (lang: Language) => void,
+    setLanguage: ((lang: Language) => void) | null,
 }
 
 const LanguageContext = createContext<LanguageState | null>(null);
@@ -54,9 +52,9 @@ export default function LanguageProvider({ children } : { children: ReactNode })
     }
 
     const state = {
-        language,
+        language: language,
         t: translations[language],
-        setLanguageState,
+        setLanguage: setLanguageState,
     };
 
     return (
@@ -68,6 +66,15 @@ export default function LanguageProvider({ children } : { children: ReactNode })
 
 export function useLanguage() {
     const language = useContext(LanguageContext);
+
+    if (!language) {
+        const newLang: LanguageState = {
+            language: "en",
+            t: translations.en,
+            setLanguage: null,
+        }
+        return newLang;
+    }
 
     return language;
 }

@@ -1,6 +1,6 @@
 export type Songbook = {
     name: string,
-    settings: SongbookSettings,
+    settings: SongbookSettings | null,
     songs: Song[],
 }
 
@@ -20,9 +20,9 @@ export type SongPage = {
     text: string,
 }
 
-export enum Page {
-    Presentation,
-    SongbookList,
-    Start,
-    SongbookEdit,
-}
+export const Page = {
+    Presentation: "p",
+    SongbookList: "l",
+    Start: "s",
+} as const;
+export type Page = typeof Page[keyof typeof Page];

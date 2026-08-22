@@ -8,13 +8,14 @@ export default function Start(props: { onFileSelect: (file: File) => void, onSon
     const langState = useLanguage();
     const { t } = langState;
 
-    function onLanguageSelected(id: nubmer) {
+    function onLanguageSelected(id: number) {
+        if (!langState.setLanguage) return;
         switch (id) {
             case 0:
-                langState.setLanguageState("en");
+                langState.setLanguage("en");
                 break;
             case 1:
-                langState.setLanguageState("de");
+                langState.setLanguage("de");
                 break;
         
             default:

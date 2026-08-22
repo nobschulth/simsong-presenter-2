@@ -1,37 +1,38 @@
 import { useState } from "react";
 import SongbookList from "./SongbookList.tsx"
-import * as fs from "fs"
 import Presentation from "./Presentation.tsx"
 import Start from "./Start.tsx"
 import * as types from "../types.ts"
 
 export default function Main() {
     const [currentPage, setCurrentPage] = useState<types.Page>(types.Page.Start);
-    const [songbook, setSongbook] = useState<types.Songbook>(() => {
+    const [songbook, setSongbook] = useState<types.Songbook | null>((): types.Songbook | null => {
         let stored = localStorage.getItem("songbook");
 
         if (stored == null) { return null; }
 
         const json = JSON.parse(stored) as types.Songbook;
-        if (json && json != "") {
+        if (json) {
             setCurrentPage(types.Page.SongbookList);
             return json;
         }
-
+        return null;
     });
     const [songIndex, setSongIndex] = useState<number>(0);
 
     function onSongbookCreated() {
-        const newSongbook: Songbook = {
-            songs: []
+        const newSongbook: types.Songbook = {
+            songs: [],
+            name: "",
+            settings: null,
         }
         setSongbook(newSongbook);
-        localStorage.setItem("songbook", newSongbook);
+        localStorage.setItem("songbook", JSON.stringify(newSongbook));
         setCurrentPage(types.Page.SongbookList);
     }
 
     function onSongSelected(index: number) {
-        if (index >= songbook.songs.length) return;
+        if (!songbook || index >= songbook.songs.length) return;
         console.log(index);
         setSongIndex(index);
         setCurrentPage(types.Page.Presentation);
@@ -56,22 +57,31 @@ export default function Main() {
     }
 
     function onSongbookListAddPressed(text: string) {
+        if (!songbook) return;
         const song = parseSong(text);
-        if (song) {
-            setSongbook({
-                ...songbook,
-                songs: [...songbook.songs, song],
-            });
-            localStorage.setItem("songbook", JSON.stringify(songbook)); 
-        }
+        if (!song) return;
+        const newSongbook: types.Songbook = {
+            ...songbook,
+            songs: [...songbook.songs, song],
+        };
+        setSongbook(newSongbook);
+        localStorage.setItem("songbook", JSON.stringify(songbook)); 
     }
 
     switch (currentPage) {
         case types.Page.Start:
             return (<Start onFileSelect={onFileSelect} onSongbookCreated={onSongbookCreated}/>);
         case types.Page.Presentation:
+            if (!songbook) {
+                setCurrentPage(types.Page.Start);
+                break;
+            }
             return (<Presentation song={songbook.songs[songIndex]} onBackPressed={onPresentationBackPressed}/>);
         case types.Page.SongbookList:
+            if (!songbook) {
+                setCurrentPage(types.Page.Start);
+                break;
+            }
             return (<SongbookList 
                     songbook={songbook} 
                     onSongSelected={onSongSelected} 
@@ -83,8 +93,11 @@ export default function Main() {
 }
 
 function parseSong(text: string) {
-    const song: types.Song = {};
-    song.pages = []
+    const song: types.Song = {
+        title: "",
+        credits: "",
+        pages: [],
+    };
     if (!text) { console.error("Can't parse Song due to empty text!"); return null; }
     const blocks = text.split("\n\n");
     for (let i = 0; i < blocks.length; i++) {
@@ -99,9 +112,11 @@ function parseSong(text: string) {
             break;
         }
         
-        const songpage: types.Songpage = {};
-        songpage.name = lines[0].trim();
-        songpage.text = blocks[i].slice(songpage.name.length);
+        const name = lines[0].trim();
+        const songpage: types.SongPage = {
+            name: name,
+            text: blocks[i].slice(name.length),
+        };
         song.pages.push(songpage);
     }
     if (song.pages.length > 0 &&

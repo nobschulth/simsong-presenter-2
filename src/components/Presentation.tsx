@@ -8,14 +8,19 @@ import "../common.css"
 export default function Presentation(props: { song: Song, onBackPressed: () => void }) {
     const { t } = useLanguage();
     const [tabbarSelected, setTabbarSelected] = useState(0);
-    const pageNames = []
+    const pageNames: string[] = [];
     props.song.pages.map((page) => {
         pageNames.push(page.name);
     });
+
+    function tabbarOnSelected(id: number) {
+        setTabbarSelected(id);
+    }
+     
     return (
         <div className={styles.flexContainer}>
             <div className={styles.song}>
-                <Tabbar selected={tabbarSelected} onSelected={setTabbarSelected} items={pageNames}/>
+                <Tabbar default={tabbarSelected} onSelected={tabbarOnSelected} items={pageNames}/>
                 <div className={styles.songTextWrap}>
                 <div className={styles.songText}>
                     {props.song.pages[tabbarSelected].text}
@@ -38,6 +43,3 @@ export default function Presentation(props: { song: Song, onBackPressed: () => v
     );
 }
 
-function tabbarOnSelected(id: number) {
-    setTabbarSelected(id);
-}
