@@ -50,7 +50,6 @@ export default function Main() {
 
     function onSongSelected(index: number) {
         if (!songbook || index >= songbook.songs.length) return;
-        console.log(index);
         setSongIndex(index);
         setCurrentPage(types.Page.Presentation);
     }
@@ -85,36 +84,50 @@ export default function Main() {
         setSongbook(newSongbook);
     }
 
-    if (!isFullscreen) {
-        return (
+
+    let page: React.ReactNode;
+    switch (currentPage) {
+        case types.Page.Start:
+            page = <Start onFileSelect={onFileSelect} onSongbookCreated={onSongbookCreated}/>;
+            break;
+        case types.Page.Presentation:
+            if (!songbook) {
+                setCurrentPage(types.Page.Start);
+                break;
+            }
+            page = <Presentation song={songbook.songs[songIndex]} onBackPressed={onPresentationBackPressed}/>;
+            break;
+        case types.Page.SongbookList:
+            if (!songbook) {
+                setCurrentPage(types.Page.Start);
+                break;
+            }
+            page = <SongbookList 
+                    songbook={songbook} 
+                    onSongSelected={onSongSelected} 
+                    onBackPressed={onSongbookListBackPressed} 
+                    onAddPressed={onSongbookListAddPressed}/>;
+            break;
+        default:
+            break;
+    }
+
+    let fullscreenPrompt: React.ReactNode;
+
+    if (!isFullscreen){
+        fullscreenPrompt = (
             <div className={styles.fullscreenPrompt} onClick={enterFullscreen}>
                 {t.fullscreenPrompt}
             </div>
         );
     }
 
-    switch (currentPage) {
-        case types.Page.Start:
-            return (<Start onFileSelect={onFileSelect} onSongbookCreated={onSongbookCreated}/>);
-        case types.Page.Presentation:
-            if (!songbook) {
-                setCurrentPage(types.Page.Start);
-                break;
-            }
-            return (<Presentation song={songbook.songs[songIndex]} onBackPressed={onPresentationBackPressed}/>);
-        case types.Page.SongbookList:
-            if (!songbook) {
-                setCurrentPage(types.Page.Start);
-                break;
-            }
-            return (<SongbookList 
-                    songbook={songbook} 
-                    onSongSelected={onSongSelected} 
-                    onBackPressed={onSongbookListBackPressed} 
-                    onAddPressed={onSongbookListAddPressed}/>);
-        default:
-            break;
-    }
+    return (
+        <div className={styles.overlay} >
+                {page}
+                {fullscreenPrompt}
+        </div>
+    );
 }
 
 const enterFullscreen = async () => {

@@ -1,4 +1,5 @@
 .fullscreenPrompt {
+    background-color: black;
     color: white;
     text-align: center;
     display: flex;
@@ -6,5 +7,12 @@
     justify-content: space-evenly;
     font-size: 10vh;
     height: 100vh;
-    font-weight: 700;
+    position: absolute;
+    inset: 0;
+    z-index: 10;   font-weight: 700;
+}
+
+.overlay {
+    position: relative;
+    background-color: transparent;
 }
