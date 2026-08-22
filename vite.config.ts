@@ -3,8 +3,9 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()], 
-  server: {
-    allowedHosts: ["holophytic-agedly-katherin.ngrok-free.dev"]
-  }
+    plugins: [react()], 
+    server: {
+        allowedHosts: ["holophytic-agedly-katherin.ngrok-free.dev"]
+    }
+    base: "/REPOSITORY/",
 })
