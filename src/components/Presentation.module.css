@@ -1,0 +1,97 @@
+
+.flexContainer {
+    height: 100vh;
+    display: flex;
+    justify-content: stretch;
+}
+
+.sideImage {
+    position: relative;
+    height: 100%;
+    width: auto;
+}
+
+.sideImage img {
+    height: 100%;
+    margin: 0;
+    display: block;
+    object-fit: cover;
+}
+
+.sideTitle {
+    background-color: black;
+    font-size: 5vh;
+    font-family: Domine;
+    color: white;
+    padding: 4vh;
+    position: absolute;
+    top: 30vh;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.sideBack {
+    margin: 1vh;
+    font-size: 3vh;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    padding: 2vh;
+}
+
+.song {
+    color: white;
+    font-size: 10em;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.songText {
+    position: relative;
+    white-space: pre-wrap;
+    text-align: center;
+    font-size: 6vh;
+    padding-left: 5vh;
+    padding-right: 5vh;
+    font-weight: 600;
+    height: 100%;
+    overflow: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.songTextWrap::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    bottom: 0vh;
+    top: 80vh;
+    left: 0vh;
+    right: 0vh;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(0, 0, 0, 1)
+    );
+}
+.songText::-webkit-scrollbar {
+    display: none;
+}
+.songTextWrap {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+}
+.songCredits {
+    text-align: left;
+    white-space: pre-wrap;
+    font-size: 1vh;
+    margin: 1vh;
+    flex: 0 0 auto;
+}

@@ -1,0 +1,75 @@
+.topContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.scrollShadow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scrollShadow::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    bottom: 9vh;
+    top: 80vh;
+    left: 0vh;
+    right: 0vh;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(0, 0, 0, 1)
+    );
+    z-index: 10;
+}
+
+.scrollWrap {
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    width: 100vw;
+}
+
+.songSelectButton {
+    color: white;
+    font-size: 6vh;
+    font-weight: bold;
+    margin: 2vh;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-left: 5vh;
+
+}
+
+.bottomPanel {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 1vh;
+}
+
+.bottomButton {
+    font-size: 3vh;
+    padding: 2vh;
+}
+
+.addButton {
+    margin: 3vh;
+    width: 50%;
+    padding: 1vh;
+    font-size: 5vh;
+}
+
+.icon {
+    font-size: 5;
+}

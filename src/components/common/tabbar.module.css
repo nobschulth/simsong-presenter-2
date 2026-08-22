@@ -1,0 +1,16 @@
+.tabbar {
+    display: flex;
+    flex: 0 0 auto;
+    width: fit-content;
+}
+
+.tabbarButton {
+    padding: 0;
+    margin: 1vh;
+    font-size: 3vh;
+}
+
+
+.tabbarButtonActive {
+    text-decoration-line: underline;
+}

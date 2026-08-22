@@ -1,0 +1,33 @@
+html, body, #root {
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
+    font-family: "Lato", sans-serif;
+}
+
+@media (orientation: portrait) {
+  .app {
+    display: none;
+  }
+
+  .rotate-message {
+    display: block;
+  }
+}
+@media (orientation: landscape) {
+  .app {
+    display: block;
+  }
+
+  .rotate-message {
+    display: none;
+  }
+}
+
+.rotate-message {
+    color: white;
+    text-align: center;
+    font-size: 2em;
+    margin-top: 5em;
+}

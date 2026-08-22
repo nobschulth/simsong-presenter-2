@@ -1,0 +1,36 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-items: center;
+    height: 100vh;
+}
+
+.title {
+    color: white;
+    font-size: 6vh;
+    margin: 1vh;
+    margin-left: 2vh;
+    margin-bottom: 10vh;
+    font-weight: 900;
+}
+
+.songbookButton {
+    margin: 2vh;
+    font-size: 5vh;
+    align-self: center;
+    text-align: center;
+    height: 20vh;
+    width: 50%;
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.tabbar {
+    margin-top: auto;
+    margin-right: 1vh;
+    align-self: flex-end;
+}
