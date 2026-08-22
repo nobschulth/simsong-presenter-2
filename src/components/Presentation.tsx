@@ -31,7 +31,7 @@ export default function Presentation(props: { song: Song, onBackPressed: () => v
                 </div>
             </div>
             <div className={styles.sideImage}>
-                <img src={`${import.meta.env.BASE_URL}assets/image.png`} className={styles.sideImage}/>
+                <img src={`${import.meta.env.BASE_URL}assets/p1.png`} className={styles.sideImage}/>
                 <div className={styles.sideTitle}>
                     {props.song.title}
                 </div>

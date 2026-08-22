@@ -64,8 +64,8 @@ export default function Main() {
             ...songbook,
             songs: [...songbook.songs, song],
         };
+        localStorage.setItem("songbook", JSON.stringify(newSongbook)); 
         setSongbook(newSongbook);
-        localStorage.setItem("songbook", JSON.stringify(songbook)); 
     }
 
     switch (currentPage) {
