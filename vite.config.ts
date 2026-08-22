@@ -6,6 +6,6 @@ export default defineConfig({
     plugins: [react()], 
     server: {
         allowedHosts: ["holophytic-agedly-katherin.ngrok-free.dev"]
-    }
+    },
     base: "/REPOSITORY/",
 })
