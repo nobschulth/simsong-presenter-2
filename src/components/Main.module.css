@@ -1,0 +1,10 @@
+.fullscreenPrompt {
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 10vh;
+    height: 100vh;
+    font-weight: 700;
+}

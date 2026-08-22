@@ -1,11 +1,27 @@
-import { useState } from "react";
+import { useLanguage } from "../Translations.tsx"
+import { useEffect, useState } from "react";
+import styles from "./Main.module.css"
 import SongbookList from "./SongbookList.tsx"
 import Presentation from "./Presentation.tsx"
 import Start from "./Start.tsx"
 import * as types from "../types.ts"
 
 export default function Main() {
+    const { t } = useLanguage();
     const [currentPage, setCurrentPage] = useState<types.Page>(types.Page.Start);
+    const [isFullscreen, setIsFullscreen] = useState(false);
+    useEffect(() => {
+        const update = () => {
+            setIsFullscreen(document.fullscreenElement !== null);
+        };
+
+        document.addEventListener("fullscreenchange", update);
+
+        return () => {
+            document.removeEventListener("fullscreenchange", update);
+        };
+    }, []);
+
     const [songbook, setSongbook] = useState<types.Songbook | null>((): types.Songbook | null => {
         let stored = localStorage.getItem("songbook");
 
@@ -18,6 +34,7 @@ export default function Main() {
         }
         return null;
     });
+
     const [songIndex, setSongIndex] = useState<number>(0);
 
     function onSongbookCreated() {
@@ -68,6 +85,14 @@ export default function Main() {
         setSongbook(newSongbook);
     }
 
+    if (!isFullscreen) {
+        return (
+            <div className={styles.fullscreenPrompt} onClick={enterFullscreen}>
+                {t.fullscreenPrompt}
+            </div>
+        );
+    }
+
     switch (currentPage) {
         case types.Page.Start:
             return (<Start onFileSelect={onFileSelect} onSongbookCreated={onSongbookCreated}/>);
@@ -91,6 +116,10 @@ export default function Main() {
             break;
     }
 }
+
+const enterFullscreen = async () => {
+    await document.documentElement.requestFullscreen();
+};
 
 function parseSong(text: string) {
     const song: types.Song = {

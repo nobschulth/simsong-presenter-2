@@ -9,6 +9,7 @@ const translations = {
         new: "New",
         download: "Download",
         exit: "Exit",
+        fullscreenPrompt: "Press for fullscreen",
     },
     de: {
         select: "Auswählen",
@@ -16,6 +17,7 @@ const translations = {
         new: "Neu",
         download: "Herunterladen",
         exit: "Verlassen",
+        fullscreenPrompt: "Drücken für Vollbild",
     }
 }
 
