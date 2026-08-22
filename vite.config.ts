@@ -7,5 +7,5 @@ export default defineConfig({
     server: {
         allowedHosts: ["holophytic-agedly-katherin.ngrok-free.dev"]
     },
-    base: "/REPOSITORY/",
+    base: "/simsong-presenter-2/",
 })
